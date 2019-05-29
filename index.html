@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>S3 Image upload</title>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+    <script src="./S3FileUploader.js"></script>
+</head>
+<body>
+        <h1>Simple S3 file uploder</h1>
+        Choose a file: <input type="file" id="file_upload">
+        <button onclick="upload()">Upload</button>
+</body>
+</html>
+
+<script>
+
+    let bucketName = 'YOUR_BUCKET';
+    let region = 'REGION';
+    let identityPoolId = 'IDENTITY_POOL_ID';
+    let fileUploader = new S3FileUploader(bucketName, region, identityPoolId, AWS);
+
+    function upload() {
+        let files = document.getElementById('file_upload').files;
+
+        if (!files.length) {
+            return alert('Please choose a file to upload first.');
+        }
+
+        fileUploader.uploadFile(files[0]);
+    }
+
+</script>
